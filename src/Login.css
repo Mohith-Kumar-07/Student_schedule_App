@@ -1,0 +1,29 @@
+/* Login.css */
+
+.form-field {
+    margin-bottom: 20px;  /* Adds 20px space below each form field */
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;  /* Limit the form width */
+    margin: 0 auto;  /* Center the form */
+  }
+  
+  .login-form label {
+    margin-bottom: 5px;  /* Adds small spacing between the label and the input */
+  }
+  
+  .login-form input {
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;  /* Adds some space below each input field */
+  }
+  
+  .login-form button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
