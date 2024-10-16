@@ -12,9 +12,10 @@ const Login = () => {
     event.preventDefault();  // Prevent page reload on form submission
 
     // Validation for Student ID
-    const idPattern = /^V-\d{8}$/;  // Example format: V-12345678
+
+    const idPattern = /^V\d{8}$/;  // Example format: V-12345678
     if (!idPattern.test(studentId)) {
-      setErrorMessage("Invalid Student ID format. Use 'V-XXXXXXXX'.");
+      setErrorMessage("Invalid Student ID format. Use 'VXXXXXXXX'.");
       setLoginSuccess(false);
       return;
     }
@@ -31,6 +32,11 @@ const Login = () => {
 
   return (
     <div>
+      {/* Display the VCU logo */}
+      <div className="logo-container">
+        <img src="/vcu-logo.jpg" alt="VCU Logo" className="logo" />
+      </div>
+
       <h2>Student Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-field">
@@ -54,6 +60,18 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}  // Update Password state
               required  // Ensure the field is mandatory
             />
+          </label>
+        </div>
+
+        {/* Remember Me Checkbox */}
+        <div className="form-field remember-me">
+          <label>
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}  // Update "Remember Me" state
+            />
+            Remember Me
           </label>
         </div>
 
