@@ -12,6 +12,7 @@ const Login = () => {
     event.preventDefault();  // Prevent page reload on form submission
 
     // Validation for Student ID
+
     const idPattern = /^V\d{8}$/;  // Example format: V-12345678
     if (!idPattern.test(studentId)) {
       setErrorMessage("Invalid Student ID format. Use 'VXXXXXXXX'.");
@@ -59,6 +60,18 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}  // Update Password state
               required  // Ensure the field is mandatory
             />
+          </label>
+        </div>
+
+        {/* Remember Me Checkbox */}
+        <div className="form-field remember-me">
+          <label>
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}  // Update "Remember Me" state
+            />
+            Remember Me
           </label>
         </div>
 
