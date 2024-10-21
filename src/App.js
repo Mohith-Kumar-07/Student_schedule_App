@@ -1,13 +1,16 @@
 import React from 'react';
-import './App.css';  // Import CSS
-import Login from './Login';  // Import the Login component
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Login';
+import Scheduleview from './Scheduleview';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to the Student Schedule App</h1>
-      <Login />  {/* Render the Login component */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/schedule/:student_id" element={<Scheduleview />} />
+      </Routes>
+    </Router>
   );
 }
 
