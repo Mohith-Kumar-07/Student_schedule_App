@@ -1,49 +1,83 @@
-/* Center the logo and add margin */
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+}
+
 .logo-container {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-/* Control the size of the logo */
 .logo {
-  width: 150px;
-  height: auto;
+  max-width: 150px;
 }
 
-.form-field {
-  margin-bottom: 20px;  /* Adds 20px space below each form field */
+h2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  width: 300px;  /* Limit the form width */
-  margin: 0 auto;  /* Center the form */
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.login-form label {
-  margin-bottom: 5px;  /* Adds small spacing between the label and the input */
+.input-group label {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
 }
 
-.login-form input {
-  padding: 8px;
-  font-size: 16px;
-  margin-bottom: 10px;  /* Adds some space below each input field */
-}
-
-.login-form button {
+.input-group input {
+  width: 100%;
   padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.remember-me {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.remember-me input {
+  margin-right: 8px;
 }
 
 .error-message {
   color: red;
-  margin-top: 10px;
+  font-size: 14px;
 }
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+/* Existing styles */
 
 .success-message {
   color: green;
-  margin-top: 10px;
+  font-size: 14px;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
 }
