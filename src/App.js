@@ -1,13 +1,16 @@
 import React from 'react';
-import './App.css';  // Import CSS
-import Login from './Login';  // Import the Login component
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import CourseView from './CourseView';  // Import the CourseView component
+import Login from './Login';  // Your existing login component
 
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to the Student Schedule App</h1>
-      <Login />  {/* Render the Login component */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/course/:course_id" element={<CourseView />} />
+      </Routes>
+    </Router>
   );
 }
 

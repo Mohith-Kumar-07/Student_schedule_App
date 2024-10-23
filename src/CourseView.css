@@ -1,0 +1,54 @@
+.course-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+}
+
+.course-schedule {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.course-schedule th, .course-schedule td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.course-schedule th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.course-schedule td {
+    color: #666;
+}
+
+.course-schedule tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+    .course-details-container {
+        padding: 10px;
+    }
+
+    .course-schedule th, .course-schedule td {
+        font-size: 14px;
+    }
+}
