@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../db'); // Ensure this path to db.js is correct
+const connection = require('../db'); 
 
 // Route to get the schedule for a student
 router.get('/schedule/:student_id', (req, res) => {
