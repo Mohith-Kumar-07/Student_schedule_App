@@ -1,104 +1,54 @@
+// src/Login.js
 import React, { useState } from 'react';
-import './Login.css';  // Import the CSS file
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './Login.css';
 
-const Login = () => {
-  const [studentId, setStudentId] = useState('');  // State for Student ID
-  const [password, setPassword] = useState('');  // State for Password
-  const [rememberMe, setRememberMe] = useState(false);  // State for "Remember Me" checkbox
-  const [loginSuccess, setLoginSuccess] = useState(false);  // State to track login success
-  const [errorMessage, setErrorMessage] = useState('');  // State for error message
+function Login() {
+    const [studentId, setStudentId] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();  // Prevent page reload on form submission
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        
+        try {
+            const response = await axios.post('/api/login', { student_id: studentId, password });
+            
+            if (response.data.success) {
+                const { firstName, lastName, semester, year } = response.data.student;
 
-    // Validation for Student ID
+                // Save student data in local storage for session
+                localStorage.setItem('studentInfo', JSON.stringify({ studentId, firstName, lastName, semester, year }));
+                
+                // Redirect to the schedule page
+                navigate(`/schedule/${studentId}`);
+            } else {
+                setErrorMessage(response.data.message);
+            }
+        } catch (error) {
+            setErrorMessage('Login failed. Please try again.');
+        }
+    };
 
-    const idPattern = /^V\d{8}$/;  // Example format: V-12345678
-    if (!idPattern.test(studentId)) {
-      setErrorMessage("Invalid Student ID format. Use 'VXXXXXXXX'.");
-      setLoginSuccess(false);
-      return;
-    }
-
-    // Simulate successful login if Student ID and Password are filled and valid
-    if (studentId && password) {
-      setLoginSuccess(true);  // Set login success to true if fields are filled
-      setErrorMessage('');  // Clear the error message
-      console.log("Login Submitted");
-      console.log("Student ID:", studentId);
-      console.log("Remember Me:", rememberMe ? "Yes" : "No");
-    }
-  };
-
-  return (
-    <div>
-      {/* Display the VCU logo */}
-      <div className="logo-container">
-        <img src="/vcu-logo.jpg" alt="VCU Logo" className="logo" />
-      </div>
-
-      <h2>Student Login</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="form-field">
-          <label>
-            Student ID:
-            <input
-              type="text"
-              value={studentId}
-              onChange={(e) => setStudentId(e.target.value)}  // Update Student ID state
-              required  // Ensure the field is mandatory
-            />
-          </label>
+    return (
+        <div className="login-container">
+            <form onSubmit={handleLogin}>
+                <h2>Login</h2>
+                <div>
+                    <label>Student ID:</label>
+                    <input type="text" value={studentId} onChange={(e) => setStudentId(e.target.value)} required />
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                <button type="submit">Login</button>
+            </form>
         </div>
-
-        <div className="form-field">
-          <label>
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}  // Update Password state
-              required  // Ensure the field is mandatory
-            />
-          </label>
-        </div>
-
-        {/* Remember Me Checkbox */}
-        <div className="form-field remember-me">
-          <label>
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}  // Update "Remember Me" state
-            />
-            Remember Me
-          </label>
-        </div>
-
-        {/* Remember Me Checkbox */}
-        <div className="form-field remember-me">
-          <label>
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}  // Update "Remember Me" state
-            />
-            Remember Me
-          </label>
-        </div>
-
-        <button type="submit">Login</button>
-
-        {/* Display error message */}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-        {/* Display success message */}
-        {loginSuccess && (
-          <p className="success-message">You have successfully logged in with Student ID: {studentId}</p>
-        )}
-      </form>
-    </div>
-  );
-};
+    );
+}
 
 export default Login;

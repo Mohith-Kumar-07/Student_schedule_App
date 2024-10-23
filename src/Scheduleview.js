@@ -1,52 +1,65 @@
-import React, { useState, useEffect } from 'react';
+// src/ScheduleView.js
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const ScheduleView = () => {
-  const [schedule, setSchedule] = useState([]);  // State to hold schedule data
-  const [error, setError] = useState('');  // State to handle error messages
+    const [schedule, setSchedule] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-  // Function to fetch the schedule data from the backend
-  useEffect(() => {
-    fetch('http://localhost:3000/student-schedule/V-01106540')  // Replace with actual student ID
-      .then(response => response.json())
-      .then(data => {
-        setSchedule(data);
-      })
-      .catch(err => {
-        setError('Failed to fetch schedule data.');
-      });
-  }, []);
+    // Retrieve student info from local storage
+    const studentInfo = JSON.parse(localStorage.getItem('studentInfo'));
+    
+    useEffect(() => {
+        axios.get(`/api/schedule/${studentInfo.studentId}`)
+            .then(response => {
+                if (response.data.success) {
+                    setSchedule(response.data.schedule);
+                } else {
+                    setError(response.data.message);
+                }
+                setLoading(false);
+            })
+            .catch(() => {
+                setError('Error fetching schedule');
+                setLoading(false);
+            });
+    }, [studentInfo.studentId]);
 
-  return (
-    <div>
-      <h1>Student Schedule</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
 
-      {schedule.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Course Name</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Day of the Week</th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedule.map((item) => (
-              <tr key={item.course_id}>
-                <td>{item.course_name}</td>
-                <td>{item.start_time}</td>
-                <td>{item.end_time}</td>
-                <td>{item.day_of_week}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No schedule data available</p>
-      )}
-    </div>
-  );
+    return (
+        <div className="schedule-container">
+            <h2>
+                Welcome, {studentInfo.firstName} {studentInfo.lastName} - {studentInfo.semester} {studentInfo.year}
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course Number</th>
+                        <th>Course Name</th>
+                        <th>Section Number</th>
+                        <th>Meeting Room</th>
+                        <th>Meeting Days</th>
+                        <th>Meeting Times</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {schedule.map((course, index) => (
+                        <tr key={index}>
+                            <td>{course.course_number}</td>
+                            <td>{course.course_name}</td>
+                            <td>{course.section_number}</td>
+                            <td>{course.meeting_room}</td>
+                            <td>{course.meeting_days}</td>
+                            <td>{course.meeting_times}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 export default ScheduleView;
