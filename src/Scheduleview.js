@@ -1,52 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-const ScheduleView = () => {
-  const [schedule, setSchedule] = useState([]);  // State to hold schedule data
-  const [error, setError] = useState('');  // State to handle error messages
+function ScheduleView() {
+  const { student_id } = useParams();
+  const [schedule, setSchedule] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // Function to fetch the schedule data from the backend
   useEffect(() => {
-    fetch('http://localhost:3000/student-schedule/V-01106540')  // Replace with actual student ID
-      .then(response => response.json())
-      .then(data => {
-        setSchedule(data);
-      })
-      .catch(err => {
-        setError('Failed to fetch schedule data.');
-      });
-  }, []);
+    const fetchSchedule = async () => {
+      try {
+        const response = await axios.get(`/api/schedule/${student_id}`);
+        if (response.data.success) {
+          setSchedule(response.data.schedule);
+        } else {
+          setErrorMessage(response.data.message);
+        }
+      } catch (error) {
+        setErrorMessage('Failed to load schedule. Please try again later.');
+      }
+    };
+
+    fetchSchedule();
+  }, [student_id]);
+
+  if (errorMessage) {
+    return <div>{errorMessage}</div>;
+  }
 
   return (
     <div>
-      <h1>Student Schedule</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {schedule.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Course Name</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Day of the Week</th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedule.map((item) => (
-              <tr key={item.course_id}>
-                <td>{item.course_name}</td>
-                <td>{item.start_time}</td>
-                <td>{item.end_time}</td>
-                <td>{item.day_of_week}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {schedule ? (
+        <h1>
+          Welcome, {schedule.firstName} {schedule.lastName} - {schedule.semester} {schedule.year}
+        </h1>
       ) : (
-        <p>No schedule data available</p>
+        <p>Loading schedule...</p>
       )}
     </div>
   );
-};
+}
 
 export default ScheduleView;

@@ -9,8 +9,8 @@ app.use(express.json()); // Middleware to parse incoming JSON requests
 // MySQL connection configuration
 const db = mysql.createConnection({
   host: 'localhost',          // Hostname (localhost for local MySQL)
-  user: 'root',               // Your MySQL username (typically 'root')
-  password: 'your_password',  // Your MySQL password
+  user: 'admin',               
+  password: 'admin123',  
   database: 'student_schedule_app',  // The name of the database you created
 });
 
@@ -34,8 +34,8 @@ app.get('/students', (req, res) => {
   });
 });
 
-// Start the server on port 3000
-const PORT = process.env.PORT || 3000;
+// Start the server on port 3001
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
