@@ -62,4 +62,4 @@ const ScheduleView = () => {
     );
 };
 
-export default ScheduleView;
+export default Scheduleview;
