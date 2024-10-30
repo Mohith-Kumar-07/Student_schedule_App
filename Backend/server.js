@@ -1,22 +1,14 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const loginRoute = require('./routes/login'); // Import login route
-const scheduleRoute = require('./routes/schedule'); // Import schedule route
-
 const app = express();
-const PORT = process.env.PORT || 3001;
+const loginRoute = require('./routes/login'); // Import login route
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
+// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Use the routes
-app.use('/api', loginRoute); // Set the base route for login
-app.use('/api', scheduleRoute); // Set the base route for schedule
+// Register the route for login
+app.use('/api/login', loginRoute); // Ensure this line is present
 
-// Start server
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -10,9 +10,7 @@ function App() {
       <h1>Student Schedule App</h1>
       {studentData ? (
         <>
-          <h2>
-            Welcome, {studentData.firstName} {studentData.lastName} - Fall 2024
-          </h2>
+          <h2>Welcome, {studentData.firstName} {studentData.lastName} - Fall 2024</h2>
           <ScheduleView studentId={studentData.studentId} />
         </>
       ) : (
