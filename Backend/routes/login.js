@@ -1,34 +1,23 @@
-// backend/routes/login.js
 const express = require('express');
 const router = express.Router();
-const connection = require('../db');
+const db = require('../db'); // Import the database connection
 
-// Login route
-router.post('/login', (req, res) => {
-    const { student_id, password } = req.body;
+// POST /api/login - Verifies if the student exists
+router.post('/', (req, res) => {
+  const { studentId } = req.body;
 
-    const query = `SELECT first_name, last_name, semester, year FROM students WHERE student_id = ? AND password = ?`;
-    
-    connection.query(query, [student_id, password], (err, results) => {
-        if (err) {
-            return res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
-        }
-
-        if (results.length > 0) {
-            const student = results[0];
-            return res.json({ 
-                success: true,
-                student: {
-                    firstName: student.first_name,
-                    lastName: student.last_name,
-                    semester: student.semester,
-                    year: student.year
-                }
-            });
-        } else {
-            return res.json({ success: false, message: 'Invalid Student ID or Password' });
-        }
-    });
+  // Query to check if the student exists
+  const query = 'SELECT * FROM students WHERE id = ?';
+  db.query(query, [studentId], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Server error');
+    }
+    if (result.length === 0) {
+      return res.status(404).send('Student not found');
+    }
+    res.json(result[0]); // Send student details if found
+  });
 });
 
 module.exports = router;
