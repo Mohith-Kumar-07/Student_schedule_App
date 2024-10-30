@@ -1,22 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Import the database connection
+const db = require('../db');
 
-// POST /api/login - Verifies if the student exists
+// POST /api/login - Verifies student credentials
 router.post('/', (req, res) => {
-  const { studentId } = req.body;
+  const { studentId, password } = req.body;
+  console.log('Received studentId:', studentId);
+  console.log('Received password:', password);
 
-  // Query to check if the student exists
-  const query = 'SELECT * FROM students WHERE id = ?';
-  db.query(query, [studentId], (err, result) => {
+  const query = 'SELECT * FROM students WHERE student_id = ? AND password = ?';
+  db.query(query, [studentId, password], (err, result) => {
     if (err) {
-      console.error(err);
+      console.error('Database error:', err);
       return res.status(500).send('Server error');
     }
     if (result.length === 0) {
-      return res.status(404).send('Student not found');
+      return res.status(401).send('Invalid Student ID or Password');
     }
-    res.json(result[0]); // Send student details if found
+    res.json({
+      studentId: result[0].student_id,
+      firstName: result[0].first_name,
+      lastName: result[0].last_name,
+    });
   });
 });
 
