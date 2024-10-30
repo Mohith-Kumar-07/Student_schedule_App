@@ -1,30 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../db');
+const db = require('../db'); // Import the database connection
 
-// Subbranch: View courses for the student under a specific schedule
-router.get('/schedule/:student_id/courses', (req, res) => {
-    const student_id = req.params.student_id;
+// GET /api/schedule/:studentId - Fetches the schedule of courses for a student
+router.get('/:studentId', (req, res) => {
+  const { studentId } = req.params;
 
-    const query = `
-        SELECT c.course_name, c.course_code, c.credits, c.meeting_days, c.meeting_times, i.instructor_name
-        FROM courses c
-        JOIN schedules sc ON sc.schedule_id = c.schedule_id
-        JOIN instructors i ON i.instructor_id = c.instructor_id
-        WHERE sc.student_id = ?
-    `;
-
-    connection.query(query, [student_id], (err, results) => {
-        if (err) {
-            return res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
-        }
-
-        if (results.length > 0) {
-            res.json({ success: true, courses: results });
-        } else {
-            res.json({ success: false, message: 'No courses found for this student.' });
-        }
-    });
+  // Query to get the student’s schedule
+  const query = `
+    SELECT course_number, course_name, section_number, meeting_room, meeting_days, meeting_times 
+    FROM courses 
+    WHERE student_id = ?
+  `;
+  db.query(query, [studentId], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Server error');
+    }
+    res.json(results); // Send back the list of courses
+  });
 });
 
 module.exports = router;
