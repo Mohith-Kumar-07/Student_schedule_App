@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
+// POST /api/login - Verifies student credentials
 router.post('/', (req, res) => {
   const { studentId, password } = req.body;
   console.log('Received studentId:', studentId);
