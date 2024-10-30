@@ -1,23 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Import the database connection
+const db = require('../db');
 
-// GET /api/schedule/:studentId - Fetches the schedule of courses for a student
 router.get('/:studentId', (req, res) => {
   const { studentId } = req.params;
 
-  // Query to get the student’s schedule
   const query = `
-    SELECT course_number, course_name, section_number, meeting_room, meeting_days, meeting_times 
-    FROM courses 
-    WHERE student_id = ?
-  `;
+    SELECT c.course_code AS course_number, c.course_name, e.section_number, 
+           e.meeting_room, e.meeting_days, e.meeting_times 
+    FROM courses c
+    JOIN enrollments e ON c.course_id = e.course_id
+    WHERE e.student_id = ? AND e.semester = 'Fall' AND e.year = '2024'`;
+
   db.query(query, [studentId], (err, results) => {
     if (err) {
-      console.error(err);
+      console.error('Database error:', err);
       return res.status(500).send('Server error');
     }
-    res.json(results); // Send back the list of courses
+    if (results.length === 0) {
+      return res.status(404).send('No courses found for this student');
+    }
+    res.json(results);
   });
 });
 
