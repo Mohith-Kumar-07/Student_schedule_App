@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './ScheduleView.css';
 
-function ScheduleView({ studentId }) {
+function ScheduleView({ studentId, studentName = { firstName: 'Student', lastName: '' }, onSelectCourse }) {
   const [schedule, setSchedule] = useState([]);
   const [error, setError] = useState(null);
 
+  // Fetch the student's schedule
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
@@ -20,20 +22,41 @@ function ScheduleView({ studentId }) {
   }, [studentId]);
 
   return (
-    <div>
-      <h2>Your Course Schedule</h2>
+    <div className="schedule-container">
+      <h2>
+        Fall 2024 Schedule for {studentName.firstName || 'Student'} {studentName.lastName || ''}
+      </h2>
       {error ? (
-        <p style={{ color: 'red' }}>{error}</p>
+        <p className="error-message">{error}</p>
       ) : (
-        <ul>
-          {schedule.map((course, index) => (
-            <li key={index}>
-              <strong>{course.course_name}</strong> - {course.course_number} (Section {course.section_number})
-              <br />
-              Room: {course.meeting_room} | Days: {course.meeting_days} | Time: {course.meeting_times}
-            </li>
-          ))}
-        </ul>
+        <table className="course-schedule">
+          <thead>
+            <tr>
+              <th>Course Number</th>
+              <th>Course Name</th>
+              <th>Section</th>
+              <th>Room</th>
+              <th>Days</th>
+              <th>Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schedule.map((course, index) => (
+              <tr key={index}>
+                <td>{course.course_number}</td>
+                <td>{course.course_name}</td>
+                <td>{course.section_number}</td>
+                <td>{course.meeting_room}</td>
+                <td>{course.meeting_days}</td>
+                <td>{course.meeting_times}</td>
+                <td>
+                  <button onClick={() => onSelectCourse(course.course_id)}>View Details</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
