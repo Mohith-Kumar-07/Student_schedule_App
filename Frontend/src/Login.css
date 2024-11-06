@@ -1,3 +1,4 @@
+/* Center the login container */
 .login-container {
   max-width: 400px;
   margin: 50px auto;
@@ -8,6 +9,7 @@
   text-align: center;
 }
 
+/* Logo styling (if you have a logo) */
 .logo-container {
   text-align: center;
   margin-bottom: 20px;
@@ -17,12 +19,14 @@
   max-width: 150px;
 }
 
+/* Login form header */
 h2 {
   font-family: 'Arial', sans-serif;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
+/* Styling for each input field */
 .input-group {
   margin-bottom: 15px;
   text-align: left;
@@ -42,6 +46,7 @@ h2 {
   border-radius: 4px;
 }
 
+/* Remember Me checkbox styling */
 .remember-me {
   margin-bottom: 15px;
   text-align: left;
@@ -51,11 +56,18 @@ h2 {
   margin-right: 8px;
 }
 
+/* Error and success message styling */
 .error-message {
   color: red;
   font-size: 14px;
 }
 
+.success-message {
+  color: green;
+  font-size: 14px;
+}
+
+/* Login button styling */
 .login-button {
   width: 100%;
   padding: 10px;
@@ -69,15 +81,4 @@ h2 {
 
 .login-button:hover {
   background-color: #0056b3;
-}
-/* Existing styles */
-
-.success-message {
-  color: green;
-  font-size: 14px;
-}
-
-.error-message {
-  color: red;
-  font-size: 14px;
 }
