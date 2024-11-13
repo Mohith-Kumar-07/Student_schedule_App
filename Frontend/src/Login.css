@@ -1,6 +1,6 @@
 /* Center the login container */
 .login-container {
-  max-width: 400px;
+  max-width: 400px; /* Increased for better layout */
   margin: 50px auto;
   padding: 20px;
   background-color: #f8f8f8;
@@ -9,14 +9,17 @@
   text-align: center;
 }
 
-/* Logo styling (if you have a logo) */
+/* Logo styling */
 .logo-container {
   text-align: center;
   margin-bottom: 20px;
 }
 
 .logo {
-  max-width: 150px;
+  max-width: 150px; /* Set for a balanced size */
+  max-height: 150px;
+  width: 100%;
+  height: auto;
 }
 
 /* Login form header */
@@ -44,16 +47,6 @@ h2 {
   margin-top: 5px;
   border: 1px solid #ddd;
   border-radius: 4px;
-}
-
-/* Remember Me checkbox styling */
-.remember-me {
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-.remember-me input {
-  margin-right: 8px;
 }
 
 /* Error and success message styling */
