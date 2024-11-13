@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ScheduleView.css';
 
-function ScheduleView({ studentId, studentName = { firstName: 'Student', lastName: '' }, onSelectCourse }) {
+function ScheduleView({ studentId, studentName, onSelectCourse }) {
   const [schedule, setSchedule] = useState([]);
   const [error, setError] = useState(null);
 
-  // Fetch the student's schedule
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
@@ -23,9 +22,7 @@ function ScheduleView({ studentId, studentName = { firstName: 'Student', lastNam
 
   return (
     <div className="schedule-container">
-      <h2>
-        Fall 2024 Schedule for {studentName.firstName || 'Student'} {studentName.lastName || ''}
-      </h2>
+      <h2>Fall 2024 Schedule for {studentName.firstName} {studentName.lastName}</h2>
       {error ? (
         <p className="error-message">{error}</p>
       ) : (
@@ -42,8 +39,8 @@ function ScheduleView({ studentId, studentName = { firstName: 'Student', lastNam
             </tr>
           </thead>
           <tbody>
-            {schedule.map((course, index) => (
-              <tr key={index}>
+            {schedule.map((course) => (
+              <tr key={course.course_id}>
                 <td>{course.course_number}</td>
                 <td>{course.course_name}</td>
                 <td>{course.section_number}</td>
@@ -51,7 +48,14 @@ function ScheduleView({ studentId, studentName = { firstName: 'Student', lastNam
                 <td>{course.meeting_days}</td>
                 <td>{course.meeting_times}</td>
                 <td>
-                  <button onClick={() => onSelectCourse(course.course_id)}>View Details</button>
+                  <button 
+                    onClick={() => {
+                      console.log("Button clicked for course_id:", course.course_id);
+                      onSelectCourse(course.course_id);
+                    }}
+                  >
+                    View Details
+                  </button>
                 </td>
               </tr>
             ))}
