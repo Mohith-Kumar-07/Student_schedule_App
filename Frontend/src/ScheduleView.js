@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './ScheduleView.css';
 
 function ScheduleView({ studentId, studentName, onSelectCourse }) {
@@ -9,8 +8,11 @@ function ScheduleView({ studentId, studentName, onSelectCourse }) {
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const response = await axios.get(`/api/schedule/${studentId}`);
-        setSchedule(response.data);
+        const response = await fetch(`/api/schedule/${studentId}`);
+        if (!response.ok) throw new Error('Failed to load schedule');
+
+        const data = await response.json();
+        setSchedule(data);
         setError(null);
       } catch (err) {
         setError('Failed to load schedule');
@@ -21,13 +23,13 @@ function ScheduleView({ studentId, studentName, onSelectCourse }) {
   }, [studentId]);
 
   return (
-    <div className="schedule-container">
+    <div className="container schedule-container">
       <h2>Fall 2024 Schedule for {studentName.firstName} {studentName.lastName}</h2>
       {error ? (
-        <p className="error-message">{error}</p>
+        <p className="text-danger">{error}</p>
       ) : (
-        <table className="course-schedule">
-          <thead>
+        <table className="table table-bordered mt-3">
+          <thead className="table-dark">
             <tr>
               <th>Course Number</th>
               <th>Course Name</th>
@@ -49,10 +51,8 @@ function ScheduleView({ studentId, studentName, onSelectCourse }) {
                 <td>{course.meeting_times}</td>
                 <td>
                   <button 
-                    onClick={() => {
-                      console.log("Button clicked for course_id:", course.course_id);
-                      onSelectCourse(course.course_id);
-                    }}
+                    className="btn btn-info"
+                    onClick={() => onSelectCourse(course.course_id)}
                   >
                     View Details
                   </button>
