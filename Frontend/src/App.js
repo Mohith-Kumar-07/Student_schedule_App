@@ -41,7 +41,7 @@ function App() {
             <ScheduleView 
               studentId={studentData.studentId} 
               studentName={{ firstName: studentData.firstName, lastName: studentData.lastName }} 
-              onSelectCourse={handleSelectCourse} 
+              onSelectCourse={()=>handleSelectCourse} 
             />
           </>
         )

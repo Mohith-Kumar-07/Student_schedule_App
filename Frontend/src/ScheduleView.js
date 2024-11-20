@@ -39,8 +39,8 @@ function ScheduleView({ studentId, studentName, onSelectCourse }) {
             </tr>
           </thead>
           <tbody>
-            {schedule.map((course) => (
-              <tr key={course.course_id}>
+            {schedule.map((course, i) => (
+              <tr key={i}>
                 <td>{course.course_number}</td>
                 <td>{course.course_name}</td>
                 <td>{course.section_number}</td>
