@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './CourseView.css';
 
 const CourseView = ({ courseId, onBack }) => {
   const [courseDetails, setCourseDetails] = useState(null);
@@ -24,24 +23,22 @@ const CourseView = ({ courseId, onBack }) => {
     if (courseId) fetchCourseDetails();
   }, [courseId]);
 
-  if (loading) return <div className="text-center">Loading...</div>;
-  if (error) return <div className="text-danger text-center">{error}</div>;
+  if (loading) return <div className="text-secondary fs-5 text-center">Loading...</div>;
+  if (error) return <div className="text-danger fs-5 text-center">{error}</div>;
 
   return (
-    <div className="container course-view-container">
-      <button className="btn btn-secondary mb-3" onClick={onBack}>Back to Schedule</button>
+    <div className="d-flex flex-column align-items-center justify-content-center p-4 bg-light min-vh-100">
+      <button className="btn btn-primary mb-3" onClick={onBack}>Back</button>
       {courseDetails && (
-        <div className="card">
-          <div className="card-body">
-            <h3 className="card-title">{courseDetails.course_name}</h3>
-            <p><strong>Course Code:</strong> {courseDetails.course_code}</p>
-            <p><strong>Section:</strong> {courseDetails.section_number}</p>
-            <p><strong>Instructor:</strong> {courseDetails.instructor_name}</p>
-            <p><strong>Student Count:</strong> {courseDetails.student_count}</p>
-            <p><strong>Description:</strong> {courseDetails.description}</p>
-            <p><strong>Modality:</strong> {courseDetails.modality}</p>
-            <p><strong>Credits:</strong> {courseDetails.credits}</p>
-          </div>
+        <div className="card shadow-sm p-4 bg-white rounded" style={{ maxWidth: '600px', width: '100%' }}>
+          <h3 className="card-title mb-3">{courseDetails.course_name}</h3>
+          <p className="text-muted">Course Code: <strong>{courseDetails.course_code}</strong></p>
+          <p className="text-muted">Section: <strong>{courseDetails.section_number}</strong></p>
+          <p className="text-muted">Instructor: <strong>{courseDetails.instructor_name}</strong></p>
+          <p className="text-muted">Student Count: <strong>{courseDetails.student_count}</strong></p>
+          <p className="text-muted">Description: <strong>{courseDetails.description}</strong></p>
+          <p className="text-muted">Modality: <strong>{courseDetails.modality}</strong></p>
+          <p className="text-muted">Credits: <strong>{courseDetails.credits}</strong></p>
         </div>
       )}
     </div>
