@@ -52,7 +52,7 @@
 }
 
 .course-schedule th {
-  background-color: #185694; /* Dark header background */
+  background-color: #073a6c; /* Dark header background */
   color: #ffffff; /* White text */
   font-weight: bold;
 }
@@ -62,14 +62,14 @@
 }
 
 .course-schedule tr:hover {
-  background-color: #084077; /* Row hover effect */
+  background-color: #201f1f; /* Row hover effect */
 }
 
 /* Button styling */
 .course-schedule button {
   padding: 8px 16px;
   color: #080505;
-  background-color: #007bff;
+  background-color: #a1a5a9;
   border: none;
   border-radius: 4px;
   cursor: pointer;
