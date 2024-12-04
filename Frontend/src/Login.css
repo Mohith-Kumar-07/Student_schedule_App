@@ -1,77 +1,86 @@
-/* Center the login container */
+/* Full-page container */
 .login-container {
-  max-width: 400px; /* Increased for better layout */
-  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full height */
+  background-color: #f4f4f9;
   padding: 20px;
-  background-color: #f8f8f8;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  text-align: center;
+}
+
+/* Login card styling */
+.login-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  
 }
 
 /* Logo styling */
-.logo-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.logo {
-  max-width: 150px; /* Set for a balanced size */
-  max-height: 150px;
-  width: 100%;
+.logo-container img {
+  width: 100px;
   height: auto;
+  border-radius: 8px;
 }
 
-/* Login form header */
-h2 {
-  font-family: 'Arial', sans-serif;
-  font-size: 24px;
-  margin-bottom: 20px;
+/* Text alignment */
+.text-center {
+  text-align: center;
 }
-
-/* Styling for each input field */
+/* Flexbox container for label and input */
 .input-group {
-  margin-bottom: 15px;
-  text-align: left;
+  display: flex; /* Aligns label and input horizontally */
+  align-items: center; /* Vertically centers the label and input */
+  gap: 10px; /* Adds horizontal space between label and input */
+  margin-bottom: 20px; /* Adds space below each input group */
 }
 
-.input-group label {
-  font-family: 'Arial', sans-serif;
-  font-size: 14px;
+/* Label styling */
+.form-label {
+  font-weight: bold; /* Optional: Makes labels bold for better readability */
+  min-width: 120px; /* Ensures labels have consistent width */
+  text-align: right; /* Aligns label text to the right */
 }
 
-.input-group input {
-  width: 100%;
+/* Input field styling */
+.form-control {
+  flex: 1; /* Makes the input field take the remaining space */
+  border: 1px solid #ccc;
+  border-radius: 5px;
   padding: 10px;
-  font-size: 14px;
-  margin-top: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  font-size: 16px;
 }
 
-/* Error and success message styling */
-.error-message {
+
+
+
+/* Add spacing between form fields */
+.mb-3 {
+  margin-bottom: 20px; /* Increase space between username and password fields */
+}
+
+/* Center the Login button */
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  font-size: 16px;
+  padding: 10px 15px;
+  display: block; /* Ensures it's treated as a block element */
+  margin: 20px auto 0; /* Centers horizontally and adds space at the top */
+  width: 60%; /* Adjust button width */
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Error message styling */
+.text-danger {
   color: red;
   font-size: 14px;
 }
 
-.success-message {
-  color: green;
-  font-size: 14px;
-}
-
-/* Login button styling */
-.login-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.login-button:hover {
-  background-color: #0056b3;
-}
