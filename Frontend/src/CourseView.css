@@ -1,55 +1,74 @@
+/* Full-page container */
 .course-view-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    min-height: 100vh;
-  }
-  
-  .back-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  
-  .back-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .course-details-card {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    text-align: left;
-  }
-  
-  .course-details-card p {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #555;
-  }
-  
-  .course-details-card strong {
-    color: #333;
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 18px;
-  }
-  
-  .loading {
-    font-size: 18px;
-    color: #666;
-  }
-  
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Back button styling */
+.back-button {
+  position: absolute;
+  top: 10px;
+  right: 80px;
+  background-color: #e6e6e6;
+  color: rgb(0, 0, 0);
+  border: black;
+  border-radius: 5px;
+  padding: 3px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+
+/* Card for course details */
+.course-card {
+  background-color: rgba(255, 255, 255, 0.9); /* White with transparency */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Course name and description */
+.course-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.course-description {
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* List styling */
+.course-details-list {
+  text-align: left;
+  font-size: 16px;
+  color: #000000;
+}
+
+.course-details-list li {
+  margin-bottom: 10px;
+}
+
+/* Loading and error messages */
+.loading,
+.error-message {
+  color: #666;
+  font-size: 18px;
+  text-align: center;
+}

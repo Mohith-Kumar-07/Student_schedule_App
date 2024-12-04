@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './CourseView.css'; // Ensure this is included
 
 const CourseView = ({ courseId, onBack }) => {
   const [courseDetails, setCourseDetails] = useState(null);
@@ -23,22 +24,32 @@ const CourseView = ({ courseId, onBack }) => {
     if (courseId) fetchCourseDetails();
   }, [courseId]);
 
-  if (loading) return <div className="text-secondary text-center fs-5">Loading...</div>;
-  if (error) return <div className="text-danger text-center fs-5">{error}</div>;
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error-message">{error}</div>;
 
   return (
-    <div className="container my-5">
-      <button className="btn btn-secondary mb-4" onClick={onBack}>Back to Schedule</button>
-      <div className="card shadow-lg p-4 bg-white rounded">
-        <h3 className="card-title">{courseDetails.description}</h3>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item"><strong>Course ID:</strong> {courseDetails.course_id}</li>
-          <li className="list-group-item"><strong>Instructor:</strong> {courseDetails.instructor_name}</li>
-          <li className="list-group-item"><strong>Student Count:</strong> {courseDetails.student_count}</li>
-          <li className="list-group-item"><strong>Modality:</strong> {courseDetails.modality}</li>
-          <li className="list-group-item"><strong>Credits:</strong> {courseDetails.credits}</li>
-        </ul>
-      </div>
+    <div
+      className="course-view-container"
+      style={{
+        backgroundImage: `url(${process.env.PUBLIC_URL}/Snead1.png)`, // Inline background image
+      }}
+    >
+      <button className="back-button" onClick={onBack}>
+        Back to Schedule
+      </button>
+      {courseDetails && (
+        <div className="course-card">
+          <h2 className="course-title">{courseDetails.course_name}</h2>
+          <p className="course-description">{courseDetails.description}</p>
+          <ul className="course-details-list">
+            <li><strong>Course ID:</strong> {courseDetails.course_id}</li>
+            <li><strong>Instructor:</strong> {courseDetails.instructor_name}</li>
+            <li><strong>Student Count:</strong> {courseDetails.student_count}</li>
+            <li><strong>Modality:</strong> {courseDetails.modality}</li>
+            <li><strong>Credits:</strong> {courseDetails.credits}</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
